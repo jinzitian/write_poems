@@ -12,6 +12,7 @@ python 3.5
  The form is ：
  python main.py train 
  ```
+  ![image](https://github.com/jinzitian/write_poems/blob/master/images/train.png)
 
  * if you want to generate poems ,please see below
  
