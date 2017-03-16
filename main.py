@@ -20,7 +20,6 @@ def main(args):
         
     if args[1] == 'generate_poem':
         for i in range(10):
-            print('hello')
             poem = generate_poem()
             count = collections.Counter(poem)
             t = poem.replace('，','。')
