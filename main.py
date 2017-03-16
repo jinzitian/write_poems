@@ -7,24 +7,42 @@ Created on Fri Mar 10 11:47:19 2017
 
 import sys
 import numpy as np
+import collections
 
 from train.train import train
-from generate.generate import generate_poem
+from generate.generate import generate_poem,generate_your_poem
 
         
 def main(args):
     
     if args[1] == 'train':
         train()
+        
     if args[1] == 'generate_poem':
         for i in range(10):
+            print('hello')
             poem = generate_poem()
-            a = np.array(list(map(len, poem.split('。')[:-1])))
-            if (a - a[0]).sum() == 0:
+            count = collections.Counter(poem)
+            t = poem.replace('，','。')
+            a = np.array(list(map(len, t.split('。')[:-1])))
+            if (a - a[0]).sum() == 0 and count['，'] == count['。']:
                 for i in poem.split('。')[:-1]:
                     print(i + '。')
                 break
             if i == 9:
+                print('not lucky , please try again~')
+                
+    if args[1] == 'generate_your_poem':
+        for i in range(100):
+            poem = generate_your_poem(args[2])
+            count = collections.Counter(poem)
+            t = poem.replace('，','。')
+            a = np.array(list(map(len, t.split('。')[:-1])))
+            if (a - a[0]).sum() == 0 and count['，'] == count['。']:
+                for i in poem.split('。')[:-1]:
+                    print(i + '。')
+                break
+            if i == 99:
                 print('not lucky , please try again~')
         
 if __name__ == '__main__':

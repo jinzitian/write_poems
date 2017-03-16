@@ -36,6 +36,7 @@ class Rnn_model(object):
         cell = tf.contrib.rnn.MultiRNNCell([cell] * num_layers, state_is_tuple=True)
         
         initial_state = cell.zero_state(batch_size, tf.float32)
+        #tensor的一个引用在feed_dict中变化时，原始tensor的其他引用也会变化,利用这个进行初始状态的feed_dict调整。
         self.initial_state = initial_state
         
         with tf.device("/cpu:0"):
