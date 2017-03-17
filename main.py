@@ -29,14 +29,14 @@ def main(args):
                     print(i + '。')
                 break
             if i == 9:
-                print('not lucky , please try again~\n')
+                print('\nnot lucky , please try again~\n')
                                 
     elif args[1] == 'generate_your_poem':
         for i in range(100):
             try:
                 poem = generate_your_poem(args[2])
             except Exception as e:
-                print('maybe your words are used not quite often, please change some words')
+                print('\nmaybe your words are used not quite often, please change some words\n')
                 break
             count = collections.Counter(poem)
             t = poem.replace('，','。')
@@ -46,10 +46,10 @@ def main(args):
                     print(i + '。')
                 break
             if i == 99:
-                print('not lucky , please try again~\n')
+                print('\nnot lucky , please try again~\n')
     
     else:
-        print('you can try:')
+        print('\nyou can try:')
         print('python main.py train')
         print('python main.py generate_poem')
         print('python main.py generate_your_poem XXXXXXX\n')
