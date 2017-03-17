@@ -29,7 +29,7 @@ def main(args):
                     print(i + '。')
                 break
             if i == 9:
-                print('not lucky , please try again~')
+                print('not lucky , please try again~\n')
                 
     if args[1] == 'generate_your_poem':
         for i in range(100):
@@ -42,7 +42,7 @@ def main(args):
                     print(i + '。')
                 break
             if i == 99:
-                print('not lucky , please try again~')
+                print('not lucky , please try again~\n')
         
 if __name__ == '__main__':
     
