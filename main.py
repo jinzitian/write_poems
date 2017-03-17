@@ -15,6 +15,10 @@ from generate.generate import generate_poem,generate_your_poem
         
 def main(args):
     
+    if sys.version[0] == '2':
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
+        
     if args[1] == 'train':
         train()
         
