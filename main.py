@@ -28,7 +28,8 @@ def main(args):
             count = collections.Counter(poem)
             t = poem.replace('，','。')
             a = np.array(list(map(len, t.split('。')[:-1])))
-            if np.sum(np.abs(a - a[0])) == 0 and count['，'] == count['。']:
+            b = np.array(list(map(len, poem.split('。')[:-1])))
+            if np.sum(np.abs(a - a[0])) == 0 and count['，'] == count['。'] and np.sum(np.abs(b - b[0])) == 0:
                 for i in poem.split('。')[:-1]:
                     print(i + '。')
                 break
@@ -48,7 +49,8 @@ def main(args):
             count = collections.Counter(poem)
             t = poem.replace('，','。')
             a = np.array(list(map(len, t.split('。')[:-1])))
-            if np.sum(np.abs(a - a[0])) == 0 and count['，'] == count['。']:
+            b = np.array(list(map(len, poem.split('。')[:-1])))
+            if np.sum(np.abs(a - a[0])) == 0 and count['，'] == count['。'] and np.sum(np.abs(b - b[0])) == 0:
                 for i in poem.split('。')[:-1]:
                     print(i + '。')
                 break
