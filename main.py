@@ -37,7 +37,7 @@ def main(args):
                 print('\nnot lucky , please try again~\n')
                                 
     elif args[1] == 'generate_your_poem':
-        for i in range(100):
+        for i in range(300):
             try:
                 if sys.version[0] == '2':
                     poem = generate_your_poem(unicode(args[2],'utf-8'))
@@ -54,7 +54,7 @@ def main(args):
                 for i in poem.split('。')[:-1]:
                     print(i + '。')
                 break
-            if i == 99:
+            if i == 299:
                 print('\nnot lucky , please try again~\n')
     
     else:
