@@ -38,7 +38,10 @@ def main(args):
     elif args[1] == 'generate_your_poem':
         for i in range(100):
             try:
-                poem = generate_your_poem(args[2])
+                if sys.version[0] == '2':
+                    poem = generate_your_poem(unicode(args[2],'utf-8'))
+                else:
+                    poem = generate_your_poem(args[2])
             except Exception as e:
                 print('\nmaybe your words are used not quite often, please change some words\n')
                 break
