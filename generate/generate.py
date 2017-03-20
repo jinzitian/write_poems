@@ -4,7 +4,7 @@ Created on Fri Jan 13 13:22:59 2017
 
 @author: Jinzitian
 """
-
+import os
 import numpy as np
 import pickle
 
@@ -12,9 +12,10 @@ import tensorflow as tf
 from models.model import Rnn_model
 from train.train import FLAGS
 
+from dict import __path__ as dict_path
 
 def next_word(predict, vocabs):
-    picklefile = open('./dict/word2id_dictionary.pkl', 'rb')
+    picklefile = open(os.path.join(dict_path[0],'word2id_dictionary.pkl'), 'rb')
     word2id = pickle.load(picklefile)
     picklefile.close()
     t = np.cumsum(predict)
@@ -26,12 +27,12 @@ def next_word(predict, vocabs):
 
 
 def generate_poem():
-    
-    picklefile = open('./dict/word2id_dictionary.pkl', 'rb')
+
+    picklefile = open(os.path.join(dict_path[0],'word2id_dictionary.pkl'), 'rb')
     word2id = pickle.load(picklefile)
     picklefile.close()    
     
-    picklefile = open('./dict/words_tuple.pkl', 'rb')
+    picklefile = open(os.path.join(dict_path[0],'words_tuple.pkl'), 'rb')
     words_tuple = pickle.load(picklefile)
     picklefile.close()   
     
@@ -64,11 +65,11 @@ def generate_poem():
 
 def generate_your_poem(header_string):
     
-    picklefile = open('./dict/word2id_dictionary.pkl', 'rb')
+    picklefile = open(os.path.join(dict_path[0],'word2id_dictionary.pkl'), 'rb')
     word2id = pickle.load(picklefile)
     picklefile.close()    
     
-    picklefile = open('./dict/words_tuple.pkl', 'rb')
+    picklefile = open(os.path.join(dict_path[0],'words_tuple.pkl'), 'rb')
     words_tuple = pickle.load(picklefile)
     picklefile.close()    
     

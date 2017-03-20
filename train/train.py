@@ -4,7 +4,7 @@ Created on Fri Jan 13 13:22:59 2017
 
 @author: Jinzitian
 """
-
+import os
 import pickle
 import numpy as np
 import tensorflow as tf
@@ -12,15 +12,19 @@ import tensorflow as tf
 from word2id.word2id import build_dataset
 from models.model import Rnn_model
 
+from checkpoints import __path__ as checkpoints_path
+from dict import __path__ as dict_path
+from data import __path__ as data_path
+
 tf.app.flags.DEFINE_integer('cell_size', 128, 'cell_size')
-tf.app.flags.DEFINE_string('poem_file_name', './data/poems.txt', 'data_file_name.')
+tf.app.flags.DEFINE_string('poem_file_name', os.path.join(data_path[0],'poems.txt'), 'data_file_name.')
 tf.app.flags.DEFINE_float('learning_rate', 1.0, 'learning_rate')
 tf.app.flags.DEFINE_integer('num_layers', 2, 'num_layers')
 tf.app.flags.DEFINE_integer('nb_epoch', 50, 'nb_epoch')
 tf.app.flags.DEFINE_integer('train_batch_size', 64, 'train_batch_size')
 tf.app.flags.DEFINE_integer('predict_batch_size', 1, 'predict_batch_size')
 tf.app.flags.DEFINE_float('init_scale', 0.1, 'init_scale')
-tf.app.flags.DEFINE_string('checkpoints_dir', './checkpoints', 'checkpoints save path.')
+tf.app.flags.DEFINE_string('checkpoints_dir', checkpoints_path[0], 'checkpoints save path.')
 tf.app.flags.DEFINE_string('model_prefix', 'Rnn_model', 'model save filename.')
 
 FLAGS = tf.app.flags.FLAGS
@@ -92,11 +96,11 @@ def train():
     x_batches, y_batches = generate_batch(FLAGS.train_batch_size, poems_vector, word2id)
     
     #用pickle保存word2id字典，为了后续预测数据时转换使用
-    output = open('./dict/word2id_dictionary.pkl', 'wb')
+    output = open(os.path.join(dict_path[0],'word2id_dictionary.pkl'), 'wb')
     pickle.dump(word2id, output)
     output.close()
     
-    output1 = open('./dict/words_tuple.pkl', 'wb')
+    output1 = open(os.path.join(dict_path[0],'words_tuple.pkl'), 'wb')
     pickle.dump(words_tuple, output1)
     output1.close()
     
@@ -120,7 +124,7 @@ def train():
                     print("Epoch: %d batch_num: %d loss: %.3f" % (j, i, loss))
 
             #保存模型时一定注意保存的路径必须是英文的，中文会报错
-            save_path = saver.save(session, FLAGS.checkpoints_dir + '/'+ FLAGS.model_prefix)
+            save_path = saver.save(session, os.path.join(FLAGS.checkpoints_dir,FLAGS.model_prefix))
             print("Model saved in file: ", save_path)
 
 
