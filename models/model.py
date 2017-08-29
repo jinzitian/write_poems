@@ -31,12 +31,22 @@ class Rnn_model(object):
             cell_unit = tf.contrib.rnn.GRUCell
         elif model == 'lstm':
             cell_unit = tf.contrib.rnn.BasicLSTMCell
+         
+        def single_cell():
+            return cell_unit(cell_size, forget_bias=0.0, state_is_tuple=True)
         
-        cell = cell_unit(cell_size, state_is_tuple=True)
-        cell = tf.contrib.rnn.MultiRNNCell([cell] * num_layers, state_is_tuple=True)
-        
+        #创建多层lstm需要注意，每层的lstm_cell都是独立的对象，需要单独创建
+        cell = tf.contrib.rnn.MultiRNNCell([single_cell() for i in range(num_layers)], state_is_tuple=True)
         initial_state = cell.zero_state(batch_size, tf.float32)
-        #tensor的一个引用在feed_dict中变化时，原始tensor的其他引用也会变化,利用这个进行初始状态的feed_dict调整。
+        
+        '''
+        tensor使用feed_dict将变量的引用改变的时候，
+        假设原来变量引用的数据为X，
+        那么之前所有引用X的变量都将被改为引用feed_dict中的值
+        (上面描述的是现象，但具体是仅仅引用变了导致的，
+        还是引用没变，而是将内存块中X的数据修改为feed_dict中的数据导致的，
+        还需要进一步确定)
+        '''
         self.initial_state = initial_state
         
         with tf.device("/cpu:0"):
